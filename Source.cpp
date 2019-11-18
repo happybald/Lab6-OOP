@@ -34,6 +34,10 @@ public:
 		this->Tyear = 2000 + rand() % 20 + 1;
 		this->Tmonth = rand() % 12 + 1;
 	}
+	Termin(const Termin& right) {
+		this->Tmonth = right.Tmonth;
+		this->Tyear = right.Tyear;
+	}
 	void Show() {
 		cout << "Year : " << this->Tyear << "\tMonth : " << this->Tmonth << endl;
 	}
@@ -49,6 +53,11 @@ public:
 		this->month = rand() % 12 + 1;
 		this->day = rand() % 31 + 1;
 	}
+	Date(const Date& right) {
+		this->day = right.day;
+		this->month = right.month;
+		this->year = right.year;
+	}
 	void Show() {
 		cout << this->day << "." << this->month << "." << this->year << endl;
 	}
@@ -58,8 +67,11 @@ class Human {
 public:
 	Date birhtday;
 	char name[25];
-//	string name1;
+	//	string name1;
 	char surname[25];
+	Human *getHuman() {
+		return this;
+	}
 	Human() {
 		char temp[25];
 		if (rand() % 100 < 50) {
@@ -69,7 +81,7 @@ public:
 				names.getline(temp, 25, '\n');
 			}
 			strcpy(this->name, temp);
-//			name1 = temp;
+			//			name1 = temp;
 			names.close();
 
 		}
@@ -93,6 +105,14 @@ public:
 		this->birhtday.month = rand() % 12 + 1;
 		this->birhtday.day = rand() % 31 + 1;
 	}
+	Human(const Human& right) {
+		strcpy(this->surname, right.surname);
+		strcpy(this->name, right.name);
+		this->birhtday.day = right.birhtday.day;
+		this->birhtday.month = right.birhtday.month;
+		this->birhtday.year = right.birhtday.year;
+
+	}
 	void Show() {
 		cout << this->name << "\t" << this->surname << endl;
 		cout << this->birhtday.day << "." << this->birhtday.month << "." << this->birhtday.year << endl;
@@ -114,7 +134,12 @@ public:
 		strcpy(this->street, temp);
 		streets.close();
 		this->build = rand() % 15 + 1;
-		this->flat = rand() % 200+1;
+		this->flat = rand() % 200 + 1;
+	}
+	Adress(const Adress& right) {
+		strcpy(this->street, right.street);
+		this->flat = right.flat;
+		this->build = right.build;
 	}
 	void Show() {
 		cout << this->street << ", " << this->build << "\t flat : " << this->flat << endl;
@@ -129,6 +154,19 @@ public:
 		this->pos.month = rand() % 12;
 		this->pos.day = rand() % 31;
 	};
+	Habitant(const Habitant& right) {
+		strcpy(this->surname, right.surname);
+		strcpy(this->name, right.name);
+		strcpy(this->street, right.street);
+		this->birhtday.day = right.birhtday.day;
+		this->birhtday.month = right.birhtday.month;
+		this->birhtday.year = right.birhtday.year;
+		this->pos.day = right.pos.day;
+		this->pos.month = right.pos.month;
+		this->pos.year = right.pos.year;
+		this->flat = right.flat;
+		this->build = right.build;
+	}
 	void Show() {
 		cout << this->name << "\t" << this->surname << endl;
 		cout << this->Human::birhtday.day << "." << this->Human::birhtday.month << "." << this->Human::birhtday.year << endl;
@@ -148,7 +186,14 @@ public:
 		this->HolVod = COLD_WATER;
 		this->GarVod = HOT_WATER;
 		this->ElPost = ELECTRO;
-	};	void Show() {
+	};
+	Price(const Price& obj) {
+		this->ComPosl = obj.ComPosl;
+		this->HolVod = obj.HolVod;
+		this->GarVod = obj.GarVod;
+		this->ElPost = obj.ElPost;
+	}
+	void Show() {
 		cout << "Com Posl = " << this->ComPosl << endl;
 		cout << "Cold Water = " << this->HolVod << endl;
 		cout << "Hot Water = " << this->GarVod << endl;
@@ -178,6 +223,29 @@ public:
 		this->TotalPrice = (this->HolVodValue * this->HolVod + this->GarVodValue * this->GarVod + this->ElPostValue * this->ElPost + ComPosl);
 	};
 
+	FlatPay(const FlatPay& right) {
+		this->Tyear = right.Tyear;
+		this->Tmonth = right.Tmonth;
+		this->date.year = right.date.year;
+		this->date.day = right.date.day;
+		this->date.month = right.date.month;
+		strcpy(this->surname, right.surname);
+		strcpy(this->name, right.name);
+		strcpy(this->street, right.street);
+		this->birhtday.day = right.birhtday.day;
+		this->birhtday.month = right.birhtday.month;
+		this->birhtday.year = right.birhtday.year;
+		this->pos.day = right.pos.day;
+		this->pos.month = right.pos.month;
+		this->pos.year = right.pos.year;
+		this->TotalPrice = right.TotalPrice;
+		this->flat = right.flat;
+		this->build = right.build;
+		this->ElPostValue = right.ElPostValue;
+		this->GarVodValue = right.GarVodValue;
+		this->HolVodValue = right.HolVodValue;
+	}
+
 	void Show() {
 		cout << fixed << setprecision(2) << setw(10) << "Name" << setw(15) << "Surname" << setw(15) << "Birthday" << setw(15) << "Pos Date" << endl;
 		cout << setw(10) << this->name << setw(15) << this->surname << setw(10) << this->Human::birhtday.day << "." << this->Human::birhtday.month << "." << this->Human::birhtday.year << setw(8) << this->FlatPay::Habitant::pos.day << "." << this->FlatPay::Habitant::pos.month << "." << this->FlatPay::Habitant::pos.year << endl;
@@ -195,7 +263,7 @@ public:
 		}
 		cout << endl << endl;
 	};
-	FlatPay &operator=(const FlatPay& right) {
+	FlatPay& operator=(const FlatPay& right) {
 		if (this == &right) {
 			return *this;
 		}
@@ -311,7 +379,6 @@ public:
 				}
 			}
 		}
-
 	}*/
 
 
@@ -323,24 +390,25 @@ ostream& operator<< (ostream& out, MainCost& point) {
 }
 
 template<typename TT>
-	class TEMP {
-	private:
-		TT Temp;
-	public:
-		TEMP(TT temp):Temp(temp)
-		{ }
-		TT getTemp() {
-			return Temp;
-		}
-	};
+class TEMP {
+private:
+	TT Temp;
+public:
+	TEMP(TT temp) :Temp(temp)
+	{ }
+	TT getTemp() {
+		return Temp;
+	}
+};
 
 int main() {
 	srand(time(NULL));
 	int ind;
-	MainCost *ptr = new MainCost();
+	Human* pointer = new Human();
+	MainCost* ptr = new MainCost();
 	MainCost Main(2);
 	do {
-			cout << "1. Show all FlatPays;" << endl;
+		cout << "1. Show all FlatPays;" << endl;
 		cin >> ind;
 		switch (ind)
 		{
@@ -354,20 +422,27 @@ int main() {
 			break;
 		}
 		case 2: {
-			unsigned int start_time = clock(); // начальное время
+			unsigned int start_time = clock(); 
 			Main.Sortchar();
-			unsigned int end_time = clock(); // конечное время
-			unsigned int search_time = end_time - start_time; // искомое время
+			unsigned int end_time = clock(); 
+			unsigned int search_time = end_time - start_time; 
 			cout << "Char time : " << search_time << endl;
 			break;
 		}
 		case 3: {
-			TEMP<MainCost> *tempclass = new TEMP<MainCost>(Main);
+			TEMP<MainCost>* tempclass = new TEMP<MainCost>(Main);
 			*ptr = tempclass->getTemp();
 			delete tempclass;
 			for (int i = 0; i < ptr->getSize(); i++) {
 				ptr->list[i].Show();
 			}
+			break;
+		}
+		case 4: {
+			TEMP<Human>* tmpcl = new TEMP<Human>(*Main.list[0].getHuman());
+			*pointer = tmpcl->getTemp();
+			delete tmpcl;
+			pointer->Show();
 			break;
 		}
 		default:
